@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
 
 namespace Datwise_Tech_Lead_Home_Assignment.Pages
 {
@@ -9,6 +8,12 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
     {
         private static string ConnectionString => ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
+        /// <summary>
+        /// /
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static DataTable ExecuteDataTable(string sql, params SqlParameter[] parameters)
         {
             var dt = new DataTable();
@@ -25,6 +30,12 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
             return dt;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spName"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static DataTable ExecuteStoredProcToDataTable(string spName, params SqlParameter[] parameters)
         {
             var dt = new DataTable();
@@ -41,6 +52,12 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
             return dt;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static object ExecuteScalar(string sql, params SqlParameter[] parameters)
         {
             using (var conn = new SqlConnection(ConnectionString))
@@ -52,6 +69,12 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static int ExecuteNonQuery(string sql, params SqlParameter[] parameters)
         {
             using (var conn = new SqlConnection(ConnectionString))

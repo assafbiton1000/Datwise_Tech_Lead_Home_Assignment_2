@@ -6,7 +6,13 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
     {
         public static class ResourceHelper
         {
-            public static string Get(string fileName, string key)
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="fileName"></param>
+            /// <param name="key"></param>
+            /// <returns></returns>
+            public static string GetGlobalResource(string fileName, string key)
             {
                 return HttpContext.GetGlobalResourceObject(fileName, key)?.ToString() ?? string.Empty;
             }

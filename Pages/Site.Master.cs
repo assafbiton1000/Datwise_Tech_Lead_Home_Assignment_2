@@ -16,7 +16,7 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
 
             if (!isPublicPage && !HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                //-------Response.Redirect("~/Pages/Login.aspx");
+                Response.Redirect("~/Pages/Login.aspx");
             }
         }
     }

@@ -41,6 +41,7 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
             }
 
             var row = dt.Rows[0];
+
             // PasswordHash column stored as varbinary; when read, may be byte[] or similar
             object phObj = row["PasswordHash"];
             if (phObj is byte[])

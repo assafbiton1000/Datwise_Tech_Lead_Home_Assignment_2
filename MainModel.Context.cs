@@ -59,5 +59,26 @@ namespace Datwise_Tech_Lead_Home_Assignment
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReportPaged_Result>("sp_GetReportPaged", pageNumberParameter, pageSizeParameter, categoryFilterParameter, regionFilterParameter, fromDateParameter, toDateParameter);
         }
+    
+        public virtual ObjectResult<sp_GetReportsForEF_Result> sp_GetReportsForEF(string categoryFilter, string regionFilter, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var categoryFilterParameter = categoryFilter != null ?
+                new ObjectParameter("CategoryFilter", categoryFilter) :
+                new ObjectParameter("CategoryFilter", typeof(string));
+    
+            var regionFilterParameter = regionFilter != null ?
+                new ObjectParameter("RegionFilter", regionFilter) :
+                new ObjectParameter("RegionFilter", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReportsForEF_Result>("sp_GetReportsForEF", categoryFilterParameter, regionFilterParameter, fromDateParameter, toDateParameter);
+        }
     }
 }

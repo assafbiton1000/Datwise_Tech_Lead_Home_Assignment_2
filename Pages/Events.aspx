@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div style="font-family: Segoe UI; padding: 20px;">
-        <h2>דוח אירועים </h2>
+        <h2 class=" alert alert-light">דוח אירועים </h2>
 
         <div class="d-flex w-100 p-3 alert alert-light">
             <asp:Chart ID="Chart1" runat="server" Width="600" Height="400">
@@ -17,11 +17,17 @@
                     <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
                 </ChartAreas>
             </asp:Chart>
+            <br />
+            <br />
+            <br />
+            <asp:Chart ID="Chart2" runat="server" Width="600px" Height="400px">
+                <Series>
+                    <asp:Series Name="Categories" ChartType="Pie"></asp:Series>
+                </Series>
+                <ChartAreas>
+                    <asp:ChartArea Name="ChartArea2"></asp:ChartArea>
+                </ChartAreas>
+            </asp:Chart>
         </div>
-
-
-
-
-
     </div>
 </asp:Content>

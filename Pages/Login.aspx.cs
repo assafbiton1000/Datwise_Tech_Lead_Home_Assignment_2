@@ -3,7 +3,6 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Web.Security;
 using System.Web.UI;
 
@@ -11,7 +10,6 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
 {
     public partial class Login : Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             // Allow anonymous access to this page
@@ -29,13 +27,12 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
             }
 
             // Hash password the same way as seed (SHA2_256)
-            byte[] passHash = System.Security.Cryptography.SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(password));
-            byte[] dbHash = null;
-
-
-
-            DataTable dt = DbHelper.ExecuteDataTable("SELECT PasswordHash, FullName, Role, IsActive FROM dbo.Users WHERE Email = @Email",
-                new SqlParameter("@Email", email));
+            ///byte[] passHash = System.Security.Cryptography.SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(password));
+            ///byte[] dbHash = null;
+            DataTable dt = DbHelper.ExecuteDataTable(
+                "SELECT PasswordHash, FullName, Role, IsActive FROM dbo.Users WHERE Email = @Email",
+                new SqlParameter("@Email", email)
+            );
             if (dt.Rows.Count == 0)
             {
                 lblMsg.Text = "שם משתמש או סיסמה שגויים.";
@@ -68,38 +65,46 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
             // שומר פרטי משתמש בסשן
             using (var db = new DatwiseContext())
             {
-                var user = db.Users
-                    .FirstOrDefault(u => u.Email == email && u.PasswordHash == password);
+                var user = db.Users.FirstOrDefault(u =>
+                    u.Email == email && u.PasswordHash == password
+                );
 
                 if (user == null)
                 {
                     lblError.Text = "שם משתמש או סיסמה שגויים.";
                     return;
                 }
+                else
+                {
+                    // שומר פרטי משתמש בסשן
+                    Session["UserId"] = user.UserId;
+                    Session["Username"] = user.Username;
+                    Session["Role"] = user.Role; // ← חשוב ביותר!
+                    Session["FullName"] = user.FullName;
 
-                // שומר פרטי משתמש בסשן
-                Session["UserId"] = user.UserId;
-                Session["Username"] = user.Username;
-                Session["Role"] = user.Role;      // ← חשוב ביותר!
-                Session["FullName"] = user.FullName;
-
-                // מפנה לדף הבית
-                Response.Redirect("~/Pages/Default.aspx");
+                    // מפנה לדף הבית
+                    Response.Redirect("~/Pages/Default.aspx");
+                }
             }
             // Log audit
-            DbHelper.ExecuteNonQuery("INSERT INTO dbo.AuditLog (UserEmail, Action) VALUES (@e, @a)",
+            DbHelper.ExecuteNonQuery(
+                "INSERT INTO dbo.AuditLog (UserEmail, Action) VALUES (@e, @a)",
                 new SqlParameter("@e", email),
-                new SqlParameter("@a", "Login"));
+                new SqlParameter("@a", "Login")
+            );
 
             Response.Redirect("~/Pages/Default.aspx");
         }
 
         private bool CompareHashes(byte[] a, byte[] b)
         {
-            if (a == null || b == null) return false;
-            if (a.Length != b.Length) return false;
+            if (a == null || b == null)
+                return false;
+            if (a.Length != b.Length)
+                return false;
             for (int i = 0; i < a.Length; i++)
-                if (a[i] != b[i]) return false;
+                if (a[i] != b[i])
+                    return false;
             return true;
         }
     }

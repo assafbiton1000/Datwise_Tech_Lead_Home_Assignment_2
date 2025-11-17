@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <div class="w-100  ml-1">
-            <h2>אודות המערכת </h2>
+            <h2 class=" alert alert-light">אודות המערכת </h2>
         </div>
         <div class="d-flex w-100 p-3">
             <p>

@@ -23,18 +23,34 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void gvUsers_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
         {
             gvUsers.EditIndex = e.NewEditIndex;
             LoadUsers();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void gvUsers_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
         {
             gvUsers.EditIndex = -1;
             LoadUsers();
         }
 
+        /// <summary>
+        /// gvUsers_RowUpdating
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void gvUsers_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
         {
             int id = (int)e.Keys["UserId"];
@@ -64,6 +80,47 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
             LoadUsers();
 
             lblMessage.Text = "השינויים נשמרו בהצלחה";
+        }
+
+        protected void btnAddUser_Click(object sender, EventArgs e)
+        {
+            string username = txtUsername.Text.Trim();
+            string fullName = txtFullName.Text.Trim();
+            string role = txtRole.Text.Trim();
+            bool isActive = chkIsActive.Checked;
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(role))
+            {
+                lblMessage.Text = "נא למלא את כל השדות";
+                lblMessage.CssClass = "text-danger";
+                return;
+            }
+
+            using (var db = new DatwiseDBEntities())
+            {
+                var newUser = new Datwise_Tech_Lead_Home_Assignment.Users
+                {
+                    Username = username,
+                    FullName = fullName,
+                    Role = role,
+                    IsActive = isActive
+                };
+
+                db.Users.Add(newUser);
+                db.SaveChanges();
+            }
+
+            // ניקוי השדות
+            txtUsername.Text = "";
+            txtFullName.Text = "";
+            txtRole.Text = "";
+            chkIsActive.Checked = false;
+
+            // ריענון הגריד
+            LoadUsers();
+
+            lblMessage.Text = "המשתמש נוסף בהצלחה!";
+            lblMessage.CssClass = "text-success";
         }
     }
 }

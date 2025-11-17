@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Datwise_Tech_Lead_Home_Assignment.Models;
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using System.Web.Security;
 using System.Web.UI;
@@ -40,30 +42,50 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
                 return;
             }
 
-            var row = dt.Rows[0];
+            //var row = dt.Rows[0];
 
-            // PasswordHash column stored as varbinary; when read, may be byte[] or similar
-            object phObj = row["PasswordHash"];
-            if (phObj is byte[])
-                dbHash = (byte[])phObj;
-            else
-                dbHash = Encoding.UTF8.GetBytes(phObj.ToString());
+            //// PasswordHash column stored as varbinary; when read, may be byte[] or similar
+            //object phObj = row["PasswordHash"];
+            //if (phObj is byte[])
+            //    dbHash = (byte[])phObj;
+            //else
+            //    dbHash = Encoding.UTF8.GetBytes(phObj.ToString());
 
-            bool ok = false;
-            if (dbHash != null)
-            {
-                ok = CompareHashes(dbHash, passHash);
-            }
+            //bool ok = false;
+            //if (dbHash != null)
+            //{
+            //    ok = CompareHashes(dbHash, passHash);
+            //}
 
-            if (!ok || !(bool)row["IsActive"])
-            {
-                lblMsg.Text = "שם משתמש או סיסמה שגויים / משתמש לא פעיל.";
-                return;
-            }
+            //if (!ok || !(bool)row["IsActive"])
+            //{
+            //    lblMsg.Text = "שם משתמש או סיסמה שגויים / משתמש לא פעיל.";
+            //    return;
+            //}
 
             // Successful login - create forms auth ticket
             FormsAuthentication.SetAuthCookie(email, false);
+            // שומר פרטי משתמש בסשן
+            using (var db = new DatwiseContext())
+            {
+                var user = db.Users
+                    .FirstOrDefault(u => u.Email == email && u.PasswordHash == password);
 
+                if (user == null)
+                {
+                    lblError.Text = "שם משתמש או סיסמה שגויים.";
+                    return;
+                }
+
+                // שומר פרטי משתמש בסשן
+                Session["UserId"] = user.UserId;
+                Session["Username"] = user.Username;
+                Session["Role"] = user.Role;      // ← חשוב ביותר!
+                Session["FullName"] = user.FullName;
+
+                // מפנה לדף הבית
+                Response.Redirect("~/Pages/Default.aspx");
+            }
             // Log audit
             DbHelper.ExecuteNonQuery("INSERT INTO dbo.AuditLog (UserEmail, Action) VALUES (@e, @a)",
                 new SqlParameter("@e", email),

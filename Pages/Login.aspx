@@ -19,6 +19,7 @@
             <br />
             <br />
             <br />
+            <asp:Label runat="server" Text="" ID="lblError" />
         </div>
     </div>
 </asp:Content>

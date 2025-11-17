@@ -15,15 +15,6 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
     {
 
         /// <summary>
-        /// lblWelcome control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWelcome;
-
-        /// <summary>
         /// pnlKPIs control.
         /// </summary>
         /// <remarks>
@@ -31,6 +22,15 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlKPIs;
+
+        /// <summary>
+        /// lblWelcome control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWelcome;
 
         /// <summary>
         /// lblTotal control.

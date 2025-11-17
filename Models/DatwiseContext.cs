@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Datwise_Tech_Lead_Home_Assignment.Models
 {
     public class DatwiseContext : DbContext
     {
-        public DatwiseContext() : base("DatwiseContext") { }
+        public DatwiseContext() : base("DefaultConnection") { }
 
         public DbSet<ReportData> ReportsData { get; set; }
         public DbSet<User> Users { get; set; }
@@ -21,7 +22,9 @@ namespace Datwise_Tech_Lead_Home_Assignment.Models
             var p6 = new SqlParameter("@ToDate", (object)toDate ?? System.DBNull.Value);
 
 
-            return this.Database.SqlQuery<ReportData>("EXEC dbo.sp_GetReportPaged @PageNumber, @PageSize, @CategoryFilter, @RegionFilter, @FromDate, @ToDate", p1, p2, p3, p4, p5, p6);
+            return this.Database.SqlQuery<ReportData>("EXEC sp_GetReportPaged @PageNumber, @PageSize, @CategoryFilter, @RegionFilter, @FromDate, @ToDate", p1, p2, p3, p4, p5, p6).ToList();
         }
     }
+
+
 }

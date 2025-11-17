@@ -65,6 +65,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -83,9 +84,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pages\Events.aspx" />
+    <Content Include="Pages\images\75646c_813046beb6c84b56b35eab981cf709d2~mv2.png" />
+    <Content Include="Pages\images\d_b_datwise_ltd_cover.jpg" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Data_Base\create_schema.sql" />
     <Content Include="Data_Base\seed_data.sql" />
     <Content Include="Data_Base\sp_GetReportPaged.sql" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="MainModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MainModel.edmx</DependentUpon>
@@ -96,10 +103,17 @@
       <DependentUpon>MainModel.edmx</DependentUpon>
       <LastGenOutput>MainModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Pages\About.aspx" />
     <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Report.aspx" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="README.md" />
+    <Content Include="Pages\User.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +128,27 @@
     <Compile Include="Models\DatwiseContext.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Pages\About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Events.aspx.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Events.aspx.designer.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\User.aspx.cs">
+      <DependentUpon>User.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\User.aspx.designer.cs">
+      <DependentUpon>User.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ReportsData.cs">
       <DependentUpon>MainModel.tt</DependentUpon>
     </Compile>
@@ -178,7 +213,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Site.Master" />
-    <Content Include="Pages\Styles\StyleSheet.scss" />
+    <Content Include="Pages\Styles\StyleSheet.css" />
     <EntityDeploy Include="MainModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MainModel.Designer.cs</LastGenOutput>
@@ -199,6 +234,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
     <Folder Include="ImTools\" />
   </ItemGroup>

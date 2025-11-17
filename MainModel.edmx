@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DatwiseDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DatwiseDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AuditLog">
           <Key>
             <PropertyRef Name="AuditId" />
@@ -36,6 +36,7 @@
           <Property Name="Role" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <Function Name="sp_GetReportPaged" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PageNumber" Type="int" Mode="In" />
@@ -50,8 +51,7 @@
           <EntitySet Name="ReportsData" EntityType="Self.ReportsData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatwiseDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -86,6 +86,7 @@
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Username" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="DatwiseDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AuditLog" EntityType="Self.AuditLog" />
@@ -139,6 +140,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DatwiseDBModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />

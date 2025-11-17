@@ -21,5 +21,6 @@ namespace Datwise_Tech_Lead_Home_Assignment
         public string Role { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime CreatedAt { get; set; }
+        public string Username { get; set; }
     }
 }

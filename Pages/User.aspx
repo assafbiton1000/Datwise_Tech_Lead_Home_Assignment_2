@@ -7,15 +7,41 @@
         <h2 class=" alert alert-light">ניהול משתמשים</h2>
 
         <div class="mb-3 w-30">
-            <asp:TextBox ID="txtUsername" runat="server" Placeholder="שם משתמש" CssClass="form-control mb-1 " Width="30%"></asp:TextBox>
+            <asp:TextBox ID="txtUsername" runat="server" Placeholder="שם משתמש" CssClass="form-control mb-1 " Width="30%" ValidateRequestMode="Enabled"></asp:TextBox>
+            <asp:RequiredFieldValidator
+                ID="RequiredFieldValidator1"
+                runat="server"
+                ControlToValidate="txtUsername"
+                ErrorMessage="שדה חובה"
+                Display="Dynamic"
+                ForeColor="Red"
+                Text="שדה חובה" />
+            <asp:TextBox ID="txtPasswordHash" runat="server" Placeholder="סיסמא" CssClass="form-control mb-1 " Width="30%" TextMode="Password" ValidateRequestMode="Enabled"></asp:TextBox>
+            <asp:RequiredFieldValidator
+                ID="rfvPassword"
+                runat="server"
+                ControlToValidate="txtPasswordHash"
+                ErrorMessage="שדה חובה"
+                Display="Dynamic"
+                ForeColor="Red"
+                Text="שדה חובה" />
             <asp:TextBox ID="txtFullName" runat="server" Placeholder="שם מלא" CssClass="form-control mb-1 " Width="30%"></asp:TextBox>
+            <asp:TextBox ID="txtEmail" runat="server" Placeholder="Email" CssClass="form-control mb-1 " Width="30%" ValidateRequestMode="Enabled"></asp:TextBox>
+            <asp:RequiredFieldValidator
+                ID="RequiredFieldValidator2"
+                runat="server"
+                ControlToValidate="txtEmail"
+                ErrorMessage="שדה חובה"
+                Display="Dynamic"
+                ForeColor="Red"
+                Text="שדה חובה" />
             <asp:TextBox ID="txtRole" runat="server" Placeholder="תפקיד" CssClass="form-control mb-1" Width="30%"></asp:TextBox>
             <asp:CheckBox ID="chkIsActive" runat="server" Text="פעיל" CssClass="form-check-input" />
             <div class="mt-3">
                 <asp:Button ID="btnAddUser" runat="server" Text="הוסף משתמש" CssClass="btn btn-primary" OnClick="btnAddUser_Click" />
             </div>
         </div>
-        <asp:GridView ID="gvUsers" runat="server"  Width="100%"
+        <asp:GridView ID="gvUsers" runat="server" Width="100%"
             AutoGenerateColumns="False"
             DataKeyNames="UserId"
             OnRowEditing="gvUsers_RowEditing"
@@ -27,6 +53,7 @@
             <Columns>
                 <asp:BoundField DataField="UserId" HeaderText="מזהה" ReadOnly="True" />
                 <asp:BoundField DataField="Username" HeaderText="שם משתמש" />
+                <asp:BoundField DataField="Email" HeaderText="Email" />
                 <asp:BoundField DataField="FullName" HeaderText="שם מלא" />
                 <asp:BoundField DataField="Role" HeaderText="תפקיד" />
 

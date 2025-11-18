@@ -185,6 +185,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="ARCHITECTURE.md" />
+    <Content Include=".github\workflows\aspnet-ci.yml" />
     <None Include="README.md" />
     <Content Include="Pages\User.aspx" />
     <Content Include="Web.config" />

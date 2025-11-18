@@ -1,5 +1,6 @@
 ﻿using Datwise_Tech_Lead_Home_Assignment.Models;
 using System;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -86,6 +87,8 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
         {
             string username = txtUsername.Text.Trim();
             string fullName = txtFullName.Text.Trim();
+            string Email = txtEmail.Text.Trim();
+            string PasswordHash = txtPasswordHash.Text.Trim();
             string role = txtRole.Text.Trim();
             bool isActive = chkIsActive.Checked;
 
@@ -96,31 +99,53 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
                 return;
             }
 
-            using (var db = new DatwiseDBEntities())
+            try
             {
-                var newUser = new Datwise_Tech_Lead_Home_Assignment.Users
+                using (var db = new DatwiseDBEntities())
                 {
-                    Username = username,
-                    FullName = fullName,
-                    Role = role,
-                    IsActive = isActive
-                };
+                    var newUser = new Datwise_Tech_Lead_Home_Assignment.Users
+                    {
+                        Username = username,
+                        Email = Email,
+                        FullName = username,
+                        PasswordHash = PasswordHash,
+                        Role = role,
+                        IsActive = isActive
+                    };
 
-                db.Users.Add(newUser);
-                db.SaveChanges();
+                    db.Users.Add(newUser);
+                    db.SaveChanges();
+
+                    // ניקוי השדות
+                    txtUsername.Text = "";
+                    txtEmail.Text = "";
+                    txtPasswordHash.Text = "";
+                    txtFullName.Text = "";
+                    txtRole.Text = "";
+                    chkIsActive.Checked = false;
+
+                    // ריענון הגריד
+                    LoadUsers();
+
+                    lblMessage.Text = "המשתמש נוסף בהצלחה!";
+                    lblMessage.CssClass = "text-success";
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Response.Write($"<p>שדה: {ve.PropertyName} — שגיאה: {ve.ErrorMessage}</p>");
+                        lblMessage.Text = "קיימת שגיאה באחד מהשדות";
+                        lblMessage.CssClass = "text-success";
+                    }
+                }
             }
 
-            // ניקוי השדות
-            txtUsername.Text = "";
-            txtFullName.Text = "";
-            txtRole.Text = "";
-            chkIsActive.Checked = false;
 
-            // ריענון הגריד
-            LoadUsers();
 
-            lblMessage.Text = "המשתמש נוסף בהצלחה!";
-            lblMessage.CssClass = "text-success";
         }
     }
 }

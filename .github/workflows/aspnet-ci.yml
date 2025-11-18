@@ -1,0 +1,45 @@
+﻿																																					 name: ASP.NET Framework CI (auto-detect projects)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Restore NuGet packages
+      run: nuget restore Datwise_Tech_Lead_Home_Assignment.sln
+
+    - name: Detect and build all projects
+      shell: pwsh
+      run: |
+        $projects = Get-ChildItem -Recurse -Filter *.csproj | ForEach-Object { $_.FullName }
+        Write-Host "Detected projects:"
+        $projects | ForEach-Object { Write-Host $_ }
+        foreach ($proj in $projects) {
+          Write-Host "Building $proj..."
+          msbuild $proj /p:Configuration=Release /p:Platform="Any CPU"
+        }
+
+    - name: Detect and run tests
+      shell: pwsh
+      run: |
+        $testDlls = Get-ChildItem -Recurse -Filter *Tests.dll | ForEach-Object { $_.FullName }
+        if ($testDlls.Count -eq 0) {
+          Write-Host "No test assemblies found."
+        } else {
+          foreach ($dll in $testDlls) {
+            Write-Host "Running tests in $dll..."
+            vstest.console.exe $dll /Logger:trx
+          }
+        }

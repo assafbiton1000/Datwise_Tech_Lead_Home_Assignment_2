@@ -19,8 +19,31 @@
 			המערכת משמשת כלי מרכזי בניהול בטיחות ארגוני, חקירת אירועים, והפחתת סיכונים.
 
 
+-[מבנה ארכיטקטוני לפרוייקט]
 
-
+  /Datwise
+  /src
+    /WebApp (ASP.NET Web Forms)
+    /Api (Web API אם יש)
+    /Shared (Libs, Models, Utilities)
+  /db
+    /migrations
+    /scripts
+      create_schema.sql
+      seed_data.sql
+      indexes.sql
+  /docs
+    ARCHITECTURE.md
+    ROADMAP.md
+    RELEASE_NOTES.md
+  /tests
+    /unit
+    /integration
+  .github
+    workflows/
+      ci.yml
+      cd.yml
+  README.md
 
 
 -installation Guide:

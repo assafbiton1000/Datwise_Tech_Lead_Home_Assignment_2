@@ -157,6 +157,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data_Base\sp_GetReportsForEF.sql" />
     <Content Include="Pages\Events.aspx" />
     <Content Include="Pages\images\75646c_813046beb6c84b56b35eab981cf709d2~mv2.png" />
     <Content Include="Pages\images\d_b_datwise_ltd_cover.jpg" />

@@ -6,7 +6,8 @@ IF OBJECT_ID('dbo.Users','U') IS NOT NULL DROP TABLE dbo.Users;
 CREATE TABLE dbo.Users (
     UserId INT IDENTITY(1,1) PRIMARY KEY,
     Email NVARCHAR(256) NOT NULL UNIQUE,
-    PasswordHash NVARCHAR(256) NOT NULL, -- לשימוש פשוט: SHA256 או hash דומה (כדאי לאחסן salt)
+    Username NVARCHAR(256) NOT NULL,
+    PasswordHash NVARCHAR(256) NOT NULL,
     FullName NVARCHAR(200) NULL,
     Role NVARCHAR(50) NULL,
     IsActive BIT NOT NULL DEFAULT 1,

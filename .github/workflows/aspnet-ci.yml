@@ -2,9 +2,9 @@
 
 on:
   push:
-    branches: [ main ]
+    branches: [ ver_1.2.0 ]
   pull_request:
-    branches: [ main ]
+    branches: [ ver_1.2.0 ]
 
 jobs:
   build-and-test:

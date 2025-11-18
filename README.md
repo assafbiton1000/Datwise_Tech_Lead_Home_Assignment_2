@@ -20,46 +20,61 @@
 
 
 -[מבנה ארכיטקטוני לפרוייקט]
-
-  /Datwise
-  /src
-    /WebApp (ASP.NET Web Forms)
-    /Api (Web API אם יש)
-    /Shared (Libs, Models, Utilities)
-  /db
-    /migrations
-    /scripts
-      create_schema.sql
-      seed_data.sql
-      indexes.sql
-  /docs
-    ARCHITECTURE.md
-    ROADMAP.md
-    RELEASE_NOTES.md
-  /tests
-    /unit
-    /integration
-  .github
-    workflows/
-      ci.yml
-      cd.yml
-  README.md
+    קיים בקובץ נפרד ARCHITECTURE.md
 
 
 -installation Guide:
 
-
 -[v 1.1.0]
 פתח את Package Manager Console ב-Visual Studio והרץ:
-
 Install-Package EntityFramework
-
 צור מסד נתונים בשם DatwiseDB ב-SQL Server (או עדכן את ה-connectionString כדי להתאים לשרת שלך).
-
 הרץ את סקריפטי ה-SQL בתיקיית /db (create_schema.sql ו-seed_data.sql) כדי ליצור טבלאות ונתוני דמה.
-
+    [C:\Users\assafbiton\My project\repos\Datwise_Tech_Lead_Home_Assignment\Data_Base]
 פתוח את הפרויקט כ-Web Application (או Web Site) ב-Visual Studio targeting .NET Framework 4.8.1.
 
 התחבר עם משתמש לדוגמה:
    - משתמש: `admin@datwise.com`
    - סיסמה: `P@ssw0rd!`
+
+
+   -[מענה לשאלות במבחן]
+   ניתן לחלק את העבודה בין שלושה מפתחים בכמה דרכים:
+
+        לפי צורת הפרויקט:
+        מפתח 1 – ממשק משתמש (UI, ASPX, CSS, JS)
+        מפתח 2 – לוגיקה עסקית ושירותים (C#)
+        מפתח 3 – נתונים ובסיס נתונים (Models, CRUD, SQL)
+        לפי מודולים/פיצ’רים:
+        מפתח 1 – מודול משתמשים
+        מפתח 2 – מודול הזמנות
+        מפתח 3 – מודול דוחות וניהול
+
+        לפי סוגי משימות:
+        מפתח 1 – Frontend
+        מפתח 2 – Backend
+        מפתח 3 – Database/Integrations
+
+        טיפים לניהול העבודה:
+        כל מפתח עובד על branch נפרד ב-Git
+        ביצוע Code Review לפני מיזוג
+        שימוש ב-CI כדי לוודא שהשינויים לא שוברים את הבילד
+        חלוקה ברורה של קבצים ומודולים למניעת התנגשויות
+
+   MVP: הגרסה המינימלית של המוצר שכוללת את הפיצ’רים החיוניים בלבד 
+    – UI בסיסי, CRUD, חיבור ל-Database ובדיקות יחידה ראשוניות.
+
+        Roadmap: תוכנית הפיתוח העתידית –
+        MVP עם הפונקציות הבסיסיות
+        הוספת פיצ’רים נוספים (מסכים מתקדמים, חיפושים, דוחות)
+        שיפורים ואופטימיזציה (אבטחה, UI משופר, תיעוד)
+        פריסה מלאה עם CI/CD ובדיקות מקיפות
+
+   -סיכונים
+
+        כשלי Build או תלות בספריות
+        בעיות בבסיס הנתונים (שינויים בסכמה)
+        התנגשויות בין מפתחים על קבצים משותפים
+        חוסר כיסוי בדיקות יחידה
+        עיכובים בזמנים או במשאבים
+        סיכוני אבטחה (SQL Injection, XSS, הרשאות)

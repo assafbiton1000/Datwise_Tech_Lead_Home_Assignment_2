@@ -83,6 +83,11 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
             lblMessage.Text = "השינויים נשמרו בהצלחה";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnAddUser_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
@@ -143,9 +148,6 @@ namespace Datwise_Tech_Lead_Home_Assignment.Pages
                     }
                 }
             }
-
-
-
         }
     }
 }

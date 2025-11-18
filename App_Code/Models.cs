@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Datwise_Tech_Lead_Home_Assignment.Pages
+﻿namespace Datwise_Tech_Lead_Home_Assignment.Pages
 {
     public class Models
     {
